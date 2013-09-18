@@ -223,7 +223,7 @@ def kmeans_only(view=False):
     learner.runKmeans(tr)
 
     if view:
-        util.viewPatches(learner.centroids[:,:20])
+        util.viewPatches(learner.centroids)
 
 def main(args=None):
     """

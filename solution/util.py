@@ -6,7 +6,7 @@ students can use for assn3
 '''
 
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # Define a few global variables
 image_x = 32 # width of image
@@ -20,7 +20,6 @@ def loadTrainImages():
     Loads all *training* images from the dataset and returns them in a
     python list.
     """
-
     numTrainImages = 2000
     file_tag = 'train'
     image_list = load_helper(file_tag,numTrainImages)
@@ -33,7 +32,6 @@ def loadTestImages():
     Loads all *testing* images from the dataset and returns them in a
     python list
     """
-
     numTestImages = 1000
     file_tag = 'test'
     image_list = load_helper(file_tag,numTestImages)
@@ -43,33 +41,11 @@ def viewPatches(patches):
     """
     Function: View Patches
     ----------------------
-    Pass in a list of patches (or centroids) in order to view them as
+    Pass in an array of patches (or centroids) in order to view them as
     images.
     """
+    view_helper(patches.reshape(patch_dim,patch_dim,-1),patches.shape[-1])
 
-    # convert to list
-    if type(patches).__name__=='ndarray':
-        patches = patches.transpose().tolist()
-
-    numToView = len(patches)
-    x = y = int(np.sqrt(numToView))
-    if x*y < numToView:
-        y+=1
-
-    for i in range(y):
-        for j in range(x):
-            if i*x+j >= len(patches):
-                break
-            ax = plt.subplot2grid((y,x),(i,j))
-            ax.imshow(np.array(patches[i*x+j]).reshape((patch_dim,patch_dim)),
-                      cmap = plt.get_cmap('gray'))
-            ax.axes.get_xaxis().set_visible(False)
-            ax.axes.get_yaxis().set_visible(False)
-
-    plt.subplots_adjust(wspace=-.5 ,hspace=0.2)            
-    plt.show()
-
-    
 
 class Image(object):
 
@@ -90,10 +66,10 @@ class Image(object):
         --------------
         Call function to view RGB image
         """
-        fig = plt.imshow(self.__img_data)
-        fig.axes.get_xaxis().set_visible(False)
-        fig.axes.get_yaxis().set_visible(False)
-        plt.show()
+        from PIL import Image
+        im = Image.fromarray(self.__img_data)
+        im = im.resize((128,128),Image.BILINEAR)
+        im.show()
 
     def getLabel(self):
         """
@@ -135,3 +111,41 @@ def load_helper(name,m):
           patches[:,i*patches_per_image:(i+1)*patches_per_image]))
     
     return image_list
+
+def view_helper(patches,num):
+    from PIL import Image
+
+    xnum = int(np.sqrt(num))
+    if xnum**2 == num:
+        ynum = xnum
+    else:
+        ynum = xnum+1
+
+    imDim = 50
+    
+    # rescale to be [0-255]
+    patches = patches-np.min(patches)
+    patches = 255*patches/np.max(patches)
+
+    newpatches = np.empty((imDim,imDim,num))
+
+    for p in range(num):
+        patch = patches[:,:,p]
+        im = Image.fromarray(patch)
+        im = im.resize((imDim,imDim),Image.BILINEAR)
+        newpatches[:,:,p] = np.asarray(im.convert('L'))
+
+    patches = newpatches
+    image = np.zeros(((imDim+1)*ynum+1,(imDim+1)*xnum+1))
+
+    for i in range(ynum):
+        for j in range(xnum):
+            imnum = i*xnum+j
+            if imnum>=num:
+                break
+            image[i*(imDim+1)+1:i*(imDim+1)+imDim+1, \
+                  j*(imDim+1)+1:j*(imDim+1)+imDim+1] \
+                  = patches[:,:,imnum]
+    
+    image = Image.fromarray(image)
+    image.show()

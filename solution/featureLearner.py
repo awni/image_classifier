@@ -19,7 +19,7 @@ class FeatureLearner(object):
         Called when the featureLearner is first created.
         DON"T CHANGE THIS USED FOR GRADING
         """
-        self.maxIter = 50
+        self.maxIter = 10
         self.trained = False
         self.k = k
         self.centroids = None
