@@ -1,0 +1,809 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+	<head>
+<title>CS221</title>
+
+<!-- Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400,600,700,900,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+<!-- Styles -->
+
+<link href="../../../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../../style.css">
+
+<!-- Java Script -->
+<script src="../../../plugins/jquery.min.js"></script>
+<script src="../../../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});
+  </script>
+
+		<style>
+			body {
+
+				line-height: 21px;
+				word-spacing: 1px;
+			}
+			p {
+				text-align: left;
+			}
+		</style>
+	</head>
+
+	<body>
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" id="pageTitle" href="../../../index.html">Stanford CS221</a>
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					<li>
+						<a class="navLink" href="../../../index.html#schedule">Schedule</a>
+					</li>
+					<li>
+						<a class="navLink" href="../../../index.html#policies">Policies</a>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle navLink" data-toggle="dropdown" href="#">Handouts <b class="caret navCaret" ></b></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<li>
+								<a class="navDropdown" href="../../../handouts/officeHours.html">Office Hours</a>
+							</li>
+							<li>
+								<a class="navDropdown" href="../../../handouts/submit.html">Submitting</a>
+							</li>
+							<li>
+                                <a class="navDropdown" href="../../../handouts/pythonTutorial.html">Python Tutorial</a>
+                              </li>
+							<!--<li>
+								<a class="navDropdown" href="../../../handouts/minimax.html">Minimax</a>
+							</li>-->
+							<li>
+								<a class="navDropdown" href="../../../handouts/markovDecisions.html">Markov Decisions</a>
+							</li>
+              				<li>
+								<a class="navDropdown" href="../../../handouts/predictingRegrades.html">Regrades</a>
+							</li>
+                            <li>
+								<a class="navDropdown" href="../../../handouts/practiceMidterms.html">Practice Midterms</a>
+							</li>
+							<li>
+								<a class="navDropdown" href="../../../handouts/docs/MidtermSolution.pdf">Midterm Solutions</a>
+							</li>
+							<li>
+								<a class="navDropdown" href="../../../handouts/kmeans.html">K Means</a>
+							</li>
+							<li>
+								<a class="navDropdown" href="../../../handouts/bigPicture.html">Big Picture</a>
+							</li>
+
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle navLink" data-toggle="dropdown" href="#">Homeworks <b class="caret navCaret" ></b></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<li style="padding-left:5px">
+								Programming:
+							</li>
+							<li>
+								<a class="navDropdown" href="../../../homework/prog/pacman/pacman.html">Pacman</a>
+							</li>
+							<li>
+							<a class="navDropdown" href="../../../homework/prog/driverlessCar/driverlessCar.html">Driverless Car</a>
+							</li>
+							<li>
+							<a class="navDropdown" href="../../../homework/prog/visualCortex/visualCortex.html">Visual Cortex</a>
+							</li>
+
+							<li class="divider"></li>
+							<li style="padding-left:5px">
+								Problem Sets:
+							</li>
+
+							<li>
+								<a class="navDropdown" href="../../../homework/pset/search.html">Search Pset</a>
+							</li>
+                            <li>
+								<a class="navDropdown" href="../../../homework/pset/variables.html">Variable Pset</a>
+							</li>
+							<li>
+								<a class="navDropdown" href="../../../homework/pset/learning.html">Learning Pset</a>
+							</li>
+							<!--<li>
+							<a class="navDropdown" href="/homework/prog/pacman/pacman.html">Variable Models Pset</a>
+							</li>
+							<li>
+							<a class="navDropdown" href="/homework/prog/pacman/pacman.html">Machine Learning Pset</a>
+							</li>-->
+							
+							<li class="divider"></li>
+							<li style="padding-left:5px">
+								Projects:
+							</li>
+							<li>
+								<a class="navDropdown" href="../../../homework/finalProject.html">Final Project</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li class="dropdown">
+						<a class="dropdown-toggle pull-right  navLink" data-toggle="dropdown" href="#">AI Stories <b class="caret navCaret"></b></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<li>
+								<a class="navDropdown" href="../../../apps/driverlessCar.html">Self Driving Car</a>
+                                <a class="navDropdown" href="../../../apps/machineTranslation.html">Machine Translation</a>
+                                <a class="navDropdown" href="../../../apps/deepBlue.html">Deep Blue</a>
+                                <a class="navDropdown" href="../../../apps/watson.html">Watson</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+		<div class="container">
+			<div id="pageHeader">
+				<div id="handoutTitle">
+					Project 3: Visual Cortex
+				</div>
+				<p>
+					Due August 5th, 11:59pm.
+				</p>
+				<p>
+					Written by Awni Hannun and Chris Piech.
+				</p>
+			</div>
+			<hr/>
+
+			<!--announcements-->
+
+			<center>
+				<img src="combo4.png" width="800px">
+			</center>
+			<center>
+				<p class="psetImgCaption" style="margin-top:0px">
+					Figure 1: When human's view the world, raw retina signals are processed by the visual cortex (left). The first neurons (right) are hypothesied to each represent whether a particular edge is seen by a particular part of the eye. Unsupervised Feature Learning and Supervised Classification.
+				</p>
+			</center>
+
+			<br/>
+
+			<h3 class="header lead">Introduction</h3>
+			<hr>
+
+			<br/>
+
+			<div class="row">
+				<div class="span9">
+
+					<div class="subsection">
+
+						<p>
+							One of the most exciting recent developments in machine learning is the ability of agents to learn how to represent
+							the world without supervision. It is particularly interesting when the learned representations are similar to the way our brains process
+							information as it seems like a step in the direction of <a href="http://en.wikipedia.org/wiki/Strong_AI">strong AI</a>.
+						</p>
+
+						<p>
+							In this assignment you are going to implement a cutting edge algorithm that will learn a feature representation of images
+							analogous to the human visual cortex. Using these "features" your program will then classify the content of images
+							in the <a href="http://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10</a> dataset.
+						</p>
+
+						<p>
+							<center>
+								<img src="cfar.png">
+							</center>
+							<center>
+								<p class="psetImgCaption" style="margin-top:0px; width:700px">
+									Figure 2: Various images of airplanes (top) and birds (bottom) from the CIFAR-10 dataset. When finished your visual cortex should be able to recognize the content of these images.
+								</p>
+							</center>
+						</p>
+
+					</div>
+
+					<div class="subsection">
+
+			<!--<div class="alert alert-info">
+  
+  <strong>Warning!</strong> This homework is in "beta" until Sunday July 28th. We may have to change the starter code. If you get started early, let
+  us know if anything goes wrong and we will fix it as soon as humanly possible (until we write an AI agent to fix it for us... then it will be as
+  soon as computationally possible).
+</div>-->
+
+						<p>
+							The code for this project contains the following files, available as a <a href="visualCortex.zip">zip
+							archive</a>.
+					</div>
+
+					<div class="subsection">
+						<p>
+							<b>Key files to read:</b>
+						</p>
+
+						<table border="0" cellpadding="10">
+
+							<tr>
+								<td><code><a href="docs/featureLearner.html">featureLearner.py</a></code></td>
+								<td>This file defines an object that has methods to both run K-means unsupervised learning and feature extraction.  You will modify this file in the assignment. Do not change existing function names, however feel free to define helper functions as needed.</td>
+							</tr>
+
+							<tr>
+								<td><code><a href="docs/classifier.html">classifier.py</a></code><td>This file defines an object for training and testing the logistic regression classifier.  You will modify this file.  Do not change existing function names, however feel free to define helper functions as needed.</td>
+							</tr>
+
+							<tr>
+								<td><code><a href="docs/evaluator.html">evaluator.py</a></code></td>
+								<td>This file contains code to evaluate how your classifier performs on the test set.  You should not need to modify this file but may want to read through the comments to understand how it works.</td>
+							</tr>
+
+							<tr>
+								<td><code><a href="docs/util.html">util.py</a></code></td>
+								<td>This file contains the
+								<code>
+									Image
+								</code> class which will create objects that represent data for each image.  Also contained in this file are several helper methods for viewing features and images.  You should not need to modify this file although you should read through it to understand how it works.</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="subsection">
+						<p>
+							<strong>Submission:</strong> Submission is the same as with the Pacman and Driverless Car assignments. You will submit the files
+							<code>featureLearner.py</code>
+							and
+							<code>classifier.py</code>. See <a href="../../../handouts/submit.html">submitting</a> for more details.
+						</p>
+					</div>
+
+					<div class="subsection">
+						<p>
+							<strong>Evaluation:</strong> Your code will be autograded for technical
+							correctness. Please <em>do not</em> change the names of any provided functions or classes within the code, or you will wreak havoc on the autograder. However, the correctness of your implementation -- not the autograder's judgements -- will be the final judge of your score.  If necessary, we will review and grade assignments individually to ensure that you receive due credit for your work.
+					</div>
+
+					<div class="subsection">
+						<p>
+							<strong>Academic Dishonesty:</strong> We will be checking your code against
+							other submissions in the class for logical redundancy (as usual). If you copy someone
+							else's code and submit it with minor changes, we will know. These cheat
+							detectors are quite hard to fool, so please don't try. We trust you all to
+							submit your own work only; <em>please</em> don't let us down. If you do, we will pursue the strongest consequences available to us, as outlined by the honor code.
+					</div>
+
+					<div class="subsection">
+						<p>
+							<strong>Getting Help:</strong> You are not alone!  If you find yourself stuck on something, contact the course staff for help.  Office hours and piazza are there for your support; please use them.  We want these projects to be rewarding and instructional, not frustrating and demoralizing.  But, we don't know when or how to help unless you ask.
+					</div>
+				</div>
+
+				<div class="span3">
+					<div class="well info faq" style="padding-bottom:0px">
+						<p>
+							<b>Tasks:</b>
+						</p>
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td style="width: 120px"><a href ="#ulearn">Unsupervised Learning</a></td>
+								</tr>
+								<tr>
+									<td style="width: 120px"><a href ="#featextract">Feature Extraction</a></td>
+								</tr>
+								<tr>
+									<td style="width: 120px"><a href ="#slearn">Supervised Learning</a></td>
+								</tr>
+								<tr>
+									<td style="width: 120px"><a href ="#extensions">Extensions</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="well info faq">
+						<b>Due Date:</b> Visual Cortex is due August 5th at 11:59pm (PDT).
+					</div>
+					<div class="well info faq">
+						<b>Submit:</b> You can submit multiple times. We will grade your latest submission.
+					</div>
+					
+
+				</div>
+			</div>
+			<br/>
+
+			<h3 class="header lead">Tasks</h3>
+			<hr>
+			<div class="row">
+				<div class="span9">
+					<div class="subsection">
+						<p>
+							This project, like most python machine learning projects, uses numpy and matplot lib. We wrote an install script that makes it 
+							one command to install the packages. If you don't have numpy and matplotlib (or you are not sure) run the install script that came with
+							the project:
+							<pre>python install.py</pre>
+							If for some reason you have trouble installing the packages, let us know and we can 
+							help you work through any problems. In the mean time you could develop your solutions on the corn machines.
+						</p>
+						<p>
+							Good to go? Next lets, get you familiar with the dataset! Open the python interpreter (type
+							<code>python</code>
+							in the command-line) and run:
+						</p>
+						<pre>import util
+trainImages = util.loadTrainImages() 
+firstImage = trainImages[0]
+firstImage.view()
+trainImages[106].view()</pre>
+</div>
+					<div class="subsection">
+						<center>
+							<img src="../../../img/fig3_imageclasses.png" width="400px">
+						</center>
+
+						<center>
+							<p class="psetImgCaption" style="margin-top:0px">
+								Figure 4: An example from each image class.  Left: A bird, Right: A plane.
+							</p>
+						</center>
+					</div>
+
+					<div class="subsection">
+						<p>
+							You should see the two images in Fig 3.  In the training set planes are given the label 0 and birds the label 1.  To see the label of an image type:
+						</p>
+						<pre>trainImages[0].label 
+trainImages[106].label </pre>
+					</div>
+					
+					<p>Now lets see how images are stored. Each image is a 32 by 32 square (yes, they are small). 
+					Images are broken down into sixteen "patches" each of which is 8 by 8. </p>
+					
+					<div>
+							<center>
+								<img src="../../../img/fig2_patches.png" width="300px">
+							</center>
+							<center>
+								<p class="psetImgCaption" style="margin-top:0px">
+									Figure 3: The sixteen patches of size 8x8 pixels corresponding to an image of size 32x32 pixels.
+								</p>
+							</center>
+
+						</div>
+						
+					<p>You can get the patches of an image by calling getPatches on your image. </p>
+						<pre>patches = firstImage.getPatches()</pre>
+					<p>Patches in our data set are simple! 
+					They are lists of 64 positive or negative floating point numbers (one entry for each of the 64 pixels in the patch). Lets print one out:</p>
+					
+<pre>len(patches)
+firstPatch = patches[0]
+len(firstPatch)
+firstPatch
+</pre>
+
+					<p>We got these numbers by transforming 
+					pixels in a similar way to how the human eye sees light. Negative numbers are for when 
+					the eye sees a dark pixel and positive numbers are for when the eye sees a light pixel. A computer trying to learn airplanes vs birds using
+						these raw "features" will <b>not</b> be able to accurately recognize the difference between birds and planes. The patch
+						representation is too low level.</p>
+
+					<!--<p>
+						In order to classify images as birds or planes, you will implement the following pipeline:
+					</p>
+					<p>
+						<a href ="#ulearn">Unsupervised Learning</a>: Implement K-means to learn K centroids for image patches. These patches are small contiguous regions of the training set of images (Fig 2).
+					</p>
+					<p>
+						<a href ="#featextract">Feature Extraction</a>: Use the K centroids found in part 1 to extract features from each image. to feed into a supervised classifier. The feature extraction creates features for each patch of an image (Fig 2) using the K centroids from part 1.  The full feature representation for an image is then the feature representations for all of its patches.
+					</p>
+					<p>
+						<a href ="#slearn">Supervised Learning</a>: Use the extracted features from part 2 in a logistic regression classifier.  You'll use Maximum Likelihood Estimation (MLE) to learn the parameters of the classifier, which will be optimized with Batch Gradient Descent.
+					</p>
+					<p>
+						<a href ="#slearn">Test</a>: You will then evaluate performance of this classifier using a test set.
+					</p>-->
+
+				</div>
+				<div class="span3">
+					<div class="well info faq">
+						<b>Patches:</b> Images are composed of patches which have been converted to gray-scale followed by standard image preprocessing 
+						(similar to the human eye). This includes normalizing them for luminance and contrast as well as further 
+						<a href="http://ufldl.stanford.edu/wiki/index.php/Whitening">whitening</a>. 
+					</div>
+				</div>
+				
+			</div>
+			
+			<div id="ulearn"></div>
+			<br/>
+			<br/>
+			<p class="lead">
+				<strong>1. Unsupervised Learning&nbsp; </strong>
+			</p>
+			<div class="row">
+				<div class="span9">
+
+					<div class="subsection">
+						<p>A simple yet powerful insight in 2012 was that an unsupervised agent can learn feature representations based on centroids 
+							of structured subsections of the training data. In this part of the assignment you will implement K-means clustering to learn 
+							centroids for image <b>patches</b>.  Specifically you should fill out the method 
+							<code>runKmeans</code> in the file
+							<code>featureLearner.py</code>.
+							
+						</p>
+
+						<center>
+							<img src="../../../img/fig4_features.png" width="300px">
+						</center>
+						<center>
+							<p class="psetImgCaption" style="margin-top:0px">
+								Figure 4: 20 centroids learned from K-means on patches from the first 1000 training images. Notice that the centroids look like edges!
+							</p>
+						</center>
+						
+
+
+						<p>
+							Since each of our image patches are 64 floating point numbers, the centroids that K-means finds will also be 64 floating point numbers.
+							We start you off by initializing K-means with random centroids where each floating point number is chosen from a normal distribution with mean 0 
+							and standard devation 1. </p>
+						<p>
+							In order to determine if K-means has converged, calculate and print the error after each iteration. 
+							The error for k-means is defined as the sum of squared <a href="http://en.wikipedia.org/wiki/Euclidean_distance#Squared_Euclidean_distance">euclidean distances</a> of each training patch to its closest centroid.
+						</p>
+						<p style="font-size:20px">
+							<center>
+								$$ Error = \sum_{i=1}^{m} \|x^{(i)}-\text{Centroid}(x^{(i)})\|_2^2 $$
+							</center>
+						</p>
+						<p>
+							Where $m$ is the number of patches, $x^{(i)}$ is the $i$th patch and $\text{Centroid}(x^{(i)})$ is the centroid that the $i$th patch is assigned to after the most recent iteration.
+						</p>
+						<p>
+							Test the K-means code with the provided test utility in
+							<code>
+								evaluator.py
+							</code>
+							by running: 							<pre>python evaluator.py -k -t</pre>
+						</p>
+						<p>
+							If you've passed the test above, try running your K-means method with a bigger dataset.  After 50 iterations of K-means with the first 1000 training images and 25 centroids, our error is 807,189.
+							You should be able to get the same results by running the
+							<code>
+								evaluator
+							</code>
+							and seeding the random number generator with the
+							<code>
+								-f
+							</code>
+							flag. Even if you do not run k-means with a fixed seed, you should get similar error.
+							
+							<pre>python evaluator.py -k -f</pre>							
+		   
+
+
+						<p>
+							Another way to determine if your K-means algorithm is learning sensible features is to view the learned centroids using our provided 
+							utility function.  To view the first 20 learned centroids, run 							
+							
+							<pre>python evaluator.py -k -f -v</pre>
+							
+							
+							Your centroids should look similar to Fig 4. Notice how the centroids resemble edges. Thats particularly interesting because the first layer of neurons in our visual cortex also detects edges. 
+
+						</p>
+					</div>
+
+				
+				</div>
+
+				<div class="span3">
+					<div class="well info faq">
+						<p>
+							<b>Numpy: </b>Some Numpy functions that may come in handy:
+						</p>
+						<ul>
+							<li>
+								<a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randn.html">numpy.random.randn</a>
+							</li>
+							<li>
+								<a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.argmin.html">numpy.argmin</a>
+							</li>
+							<li>
+								<a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.hstack.html">numpy.hstack</a> or <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.vstack.html">numpy.vstack</a>
+							</li>
+							<li>
+								<a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html">numpy.dot</a>
+							</li>
+							<li>
+								<a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.maximum.html">numpy.maximum</a>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div id="featextract"></div>
+			<br/>
+			<br/>
+			<p class="lead">
+				<strong>2. Feature Extraction </strong>
+			</p>
+			<div class="row">
+				<div class="span9">
+					<div class="subsection">
+						<p>How can we our patch centroids to generate features that will be more useful for the classification task then the raw pixel intensities we started out with? 
+							The answer is to represent each patch by the distance to the  
+							centroids that it most resembles.</p>
+						<p>
+							In this portion of the assignment you will implement the
+							<code>extractFeatures</code>
+							method in the
+							<code>featureLearner.py</code>
+							file.  This method takes one image object, and returns features for that image using the learned centroids.  
+						</p>
+						<p>
+							There will be one feature for each patch, centroid combination which will be a representation of how similar the patch is
+							to the centroid (see the exact definition below). Therefore, each image will have $16$x$K$ features where $16$ is the number of patches per image and $K$ is the number 
+							of centroids learned in part 1.  </p>
+							
+							<p>The relative activation of centroid $j$ by patch $i$ ($a_{ij}$) is defined to be the average distance 
+								from patch $i$ to all centroids minus the distance from $i$ to $j$. 
+								
+								<p style="font-size:50px">
+							<center>
+								$$ a_{ij} = \frac{\sum\limits_{c \in centroids}{\|i-c\|_2}}{K} - \|i-j\|_2 $$
+							</center>
+						</p>
+								
+								The feature value for patch $i$ and centroid $j$
+								is the max of the relative activation and zero.
+						</p>
+						<p style="font-size:20px">
+							<center>
+								$$ f_{ij} = max\{0,a_{ij}\} $$
+							</center>
+						</p>
+						<p>
+							The format of the features should be a 1D array.
+							Test your feature extraction code by running 							<pre>python evaluator.py -e</pre>
+						</p>
+						
+						
+					</div>
+					<p>If the test passes, the first layer of your visual cortex is working!</p>
+				</div>
+
+			</div>
+
+			<div id = "slearn"></div>
+			<br/>
+			<br/>
+			<p class="lead">
+				<strong>3. Supervised Learning </strong>
+			</p>
+			<div class="row">
+				<div class="span9">
+					<div class="subsection">
+						<p>
+							Our final task is to use our better feature representation to classify images as birds or planes. You will implement both parts
+							of the supervised learning pipeline: training (learning a hypothesis function) and testing (using your hypothesis function to make
+							predictions)</p>
+							
+							<p>
+							For this assignmnet you should write a logistic regression classifier using batch gradient descent. First fill out the method <code>train</code> in the file <code>classifier.py</code>
+							to learn all the parameters you will need to make predictions. The images passed in to you will be in their original "raw" form. Make
+							sure to use your <code>FeatureLearner</code> from the previous parts so that you can turn images into a higher level representation.
+
+							
+							<center>
+				<img src="pipeline.png" width="500px">
+			</center>
+			<center>
+				<p class="psetImgCaption" style="margin-top:0px">
+					Figure 5: The supervised learning pipeline.</p>
+			</center>
+			
+						<p>
+							Specifically, write a logistic regression classifier that does not use an intercept variable. Solve for the weights using
+							a batch (standard) gradient descent update that minimizes the likelihood objective. You should not use a regularization term.</p>
+			
+						<p>In our solution, we initialize the weight vector from a zero-mean gaussian with 0.01 standard deviation.
+						</p>
+						<p>
+							You can test your logistic regression classifier by running 							<pre>python evaluator.py -s</pre>
+						</p>
+						<p>
+							To save time in computation you can run a toy version of the full pipeline by passing
+							<code>evaluator</code>
+							the
+							<code>-d</code>
+							flag. 							<pre>python evaluator.py -d</pre>
+						</p>
+
+						<p>
+							Run gradient descent for
+							<code>self.maxIter = 5000</code>
+							iterations before stopping.  After running gradient descent for 5000 iterations using only the first 1000 training images and a learning rate $\alpha=1e-5$, our negative log-likelihood evaluated to $400.8$.
+						</p>
+
+						<p>
+							Next implement the
+							<code>test</code>
+							method in the
+							<code>classifier.py</code>
+							file.  This method takes as input a list of test
+							<code>Image</code>
+							objects and makes a prediction as to whether each image is a plane or a bird (0 or 1 respectively).
+						</p>
+
+						<p>
+							Now you are ready to run the entire pipeline and evaluate performance!  Run the full pipeline with (include the
+							<code>-f</code>
+							flag to recreate our results):
+						</p>
+						<pre>python evaluator.py</pre>						
+						
+
+
+
+						<p>
+							The output of this should be two scores, the training and the testing accuracy.  Following the steps above our classifier achieves 85.5% accuracy on the training set and 72.8% accuracy on the test set.
+						<p>
+					</div>
+				</div>
+
+			</div>
+
+			<br/>
+			<p id = "extensions" class="lead">
+				<strong>4. What does this mean?</strong>
+			</p>
+			<div class="row">
+				<div class="span9">
+					<div class="subsection">
+						<p>
+							One commonly held hypothesis is that humans process natural stimuli such as images in multiple layers of representation, 
+							starting with the raw sensory stimulus and slowly building higher and higher levels of representation. 
+							For example in human vision the raw sensory stimulus received in the retina is passed to a first layer of neurons 
+							in the visual cortex. This first layer is hypothesized to have many neurons known as simple cells all of which code 
+							for different features in the input. In particular, much evidence points to these simple cells as being edge detectors, 
+							i.e. they each code for a specific edge of different orientation and translation within the image. 
+							The new representation of what the eye sees becomes the activations of these simple cells which the next part of the brain 
+							can turn into higher level understanding like: "I'm looking at a bird."
+						</p>
+
+						<p>
+							The unsupervised algorithm you implemented was able to learn a feature representation of images similar to the first layer of 
+							processing in the visual cortex. In other words, the algorithm wasn't told via supervision or hard coded in any other way 
+							to learn to represent an image as it's component edges. Amazingly, that's what the agent found to be the most important features 
+							in an image on its own! Unsuprisingly, since our features were similar to the human brain we were quite good at telling the 
+							difference between birds and planes. This result suggests the AI community may be approaching an understanding 
+							of the learning algorithm used by the human brain.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<br/>
+			<p id = "extensions" class="lead">
+				<strong>5. Extensions (Optional)</strong>
+			</p>
+			<div class="row">
+				<div class="span9">
+					<div class="subsection">
+						If you decide to implement any extensions for this project, please include a
+						<code>
+							README
+						</code>
+						file in your submission that documents everything you did.  Some suggestions for extensions include:
+					</div>
+					<div class="subsection">
+						<ul>
+							<li>
+								Get classification accuracy high! We will give bonus points to student with best classification accuracy. Note all extra work should be done outside of existing functions in order to not mess up the autograder.  Report your best accuracy in your
+								<code>
+									README
+								</code>
+								.  We will run your code to verify this.
+							</li>
+							<li>
+								Try out using a different linear classifier, such as a linear SVM, and report how it performs.
+							</li>
+							<li>
+								Overfit the training data with many centroids and add a regularizer to your cost function to see if you can improve generalization error
+							</li>
+							<li>
+								Anything else you can dream up!
+							</li>
+						</ul>
+					</div>
+
+					<div class="subsection">
+						Note: We will not accept as extra credit any work that uses existing libraries such as can be found in scikit-learn.  You must write the software for all additional work.  If you are unsure if you are using an illegal module, please contact the staff.
+					</div>
+
+				</div>
+
+			</div>
+
+			<br />
+			<p class="lead">
+				<strong>References</strong>
+			</p>
+			<div class="row">
+				<div class="span9">
+
+					<div class="subsection">
+						<ul>
+							<li>
+								Learning Feature Representations with K-means, Adam Coates and Andrew Y. Ng. In Neural Networks: Tricks of the Trade, Reloaded, Springer LNCS, 2012.(<a href="http://www.stanford.edu/~acoates/papers/coatesng_nntot2012.pdf">pdf</a>)
+							</li>
+							<li>
+								An Analysis of Single-Layer Networks in Unsupervised Feature Learning, Adam Coates, Honglak Lee, and Andrew Y. Ng. In AISTATS 14, 2011.(<a href="http://www.stanford.edu/~acoates/papers/coatesleeng_aistats_2011.pdf">pdf</a>)
+							</li>
+							<li>
+								Learning Multiple Layers of Features from Tiny Images, Alex Krizhevsky, 2009. (<a href="http://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf">pdf</a>)
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+			<br/>
+			<p>
+				<em>Project 3 is done!</em>
+			</p>
+
+<hr>
+
+<div class="footer">
+	<p class="pull-left">
+		&#169; Stanford 2013 &#124; Designed by <a href="http://stanford.edu/~cpiech">Chris</a>. Inspired by <a href="http://njoubert.com/">Niels</a> and <a href="http://cs.stanford.edu/~pliang/">Percy</a>.
+	</p>
+	<p class="pull-right">
+		<a href="../../../fall12">Fall 2012</a>
+	</p>
+</div>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-35433298-1']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
+<script>
+	$(document).ready(function() {
+		$('.dropdown-toggle').dropdown()
+		$('.thumbnail').tooltip({
+			placement : 'bottom',
+			delay : {
+				show : 750
+			}
+		})
+	});
+</script>
+		</div>
+
+	</body>
+
+</html>
