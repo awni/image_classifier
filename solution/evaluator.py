@@ -184,24 +184,7 @@ def test_log_regression():
 
     studentTheta = clf.theta.squeeze()
     
-    import os
-    theta_int = None
-    if os.path.exists('data/log_reg_test_int.npy'):
-        fid = open('data/log_reg_test_int.npy','r')
-        theta_int = pickle.load(fid)
-        fid.close()
-
-    if studentTheta.size == theta.size:
-        assert studentTheta.shape==theta.shape,"Dimension mismatch"
-
-    if studentTheta.size > theta.size:
-        if theta_int is not None:
-            assert studentTheta.shape==theta_int.shape,"Dimension mismatch"
-            theta = theta_int
-        else:
-            print "You may need the new data if you have implemented an intercept."
-            print "Otherwise there is a dimension mismatch."
-            return
+    assert studentTheta.shape==theta.shape,"Dimension mismatch"
 
     if np.abs(np.sum(theta)-np.sum(studentTheta)) > 1e-3:
         print "Parameter vector mismatch, test failed"

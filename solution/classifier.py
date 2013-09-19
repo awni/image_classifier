@@ -27,7 +27,7 @@ class Classifier(object):
         """
         Function: Train
         -------------
-        Given a set of training images, and a number of centroids to learn
+        Given a set of training images, and a number of centroids to learn,
         k, calculate any information you will need in order to make
         predictions in the testing phase.
         """
@@ -37,9 +37,13 @@ class Classifier(object):
         # in the first two parts of the assignment.
         self.featureLearner = FeatureLearner(k)
 
-        # First run your k-means function. After, you will be
+        # First run your K-means function. After, you will be
         # able to use the extractFeatures method that you wrote.
         self.featureLearner.runKmeans(trainImages)
+        
+        # Initialize weight vector
+        numPatches = (util.image_x/util.patch_dim)**2
+        self.theta = 1e-2*np.random.randn(k*numPatches+1)
 
         ### YOUR CODE HERE ###
 
@@ -48,17 +52,12 @@ class Classifier(object):
         trainImages]
         
         X = np.vstack(X).transpose() # featdim by num samples
-        # X = np.vstack([np.ones(X.shape[1]), X])
+        X = np.vstack([np.ones(X.shape[1]), X])
 
         # label array
         Y = np.array([image.getLabel() for image in trainImages])
 
         # run gradient descent on learned features
-        n = X.shape[0]
-        m = float(X.shape[1])
-
-        self.theta = 1e-2*np.random.randn(n)
-
         for i in range(self.maxIter):
             
             # logistic probabilities
@@ -98,7 +97,8 @@ class Classifier(object):
         testImages]
         
         X = np.vstack(X).transpose() # featdim by num samples
-        # X = np.vstack([np.ones(X.shape[1]),X])
+        X = np.vstack([np.ones(X.shape[1]),X])
+
         # probabilities
         probs = 1/(1+np.exp(-self.theta.dot(X)))
 

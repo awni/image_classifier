@@ -112,19 +112,16 @@ def test_log_regression(stress=False):
         k=10
         images = util.loadTrainImages()[100:200]
         clf.maxIter = 100
-        thetaFile = 'grading_data/log_reg_stress'
+        thetaFile = 'grading_data/log_reg_stress.npy'
     else:
         np.random.seed(142)
         k = 5
         images = util.loadTrainImages()[:100]
         clf.maxIter = 5
-        thetaFile = 'grading_data/log_reg_simple'
+        thetaFile = 'grading_data/log_reg_simple.npy'
 
     clf.train(images,k)
     studentTheta = clf.theta.squeeze()
-    if studentTheta.size==(k*16+1):
-        thetaFile = thetaFile+'_int'
-    thetaFile = thetaFile+'.npy'
             
     fid = open(thetaFile,'r')
     theta = pickle.load(fid)
@@ -150,21 +147,10 @@ def test_predictions(dummy=True):
     k = 10
     clf.train(images,k)
 
-    if clf.theta.size==(k*16+1):
-        intercept = True
-    else:
-        intercept = False
-
-    if not intercept:
-        predfile = 'grading_data/predictions.npy'
-        fid = open('grading_data/log_reg_stress.npy','r')
-        theta = pickle.load(fid)
-        fid.close()
-    else:
-        predfile = 'grading_data/predictions_int.npy'
-        fid = open('grading_data/log_reg_stress_int.npy','r')
-        theta = pickle.load(fid)
-        fid.close()
+    predfile = 'grading_data/predictions.npy'
+    fid = open('grading_data/log_reg_stress.npy','r')
+    theta = pickle.load(fid)
+    fid.close()
 
     clf.theta = theta
     studentPreds = clf.test(images)
@@ -181,17 +167,16 @@ def test_predictions(dummy=True):
 
     if np.sum(preds==studentPreds)!=preds.size:
         # try again with intercept at end just in case
-        if intercept:
-            fid = open('grading_data/log_reg_stress_int_end.npy','r')
-            theta = pickle.load(fid)
-            fid.close()
-            clf.theta = theta
-            studentPreds = np.array(clf.test(images),dtype=np.int32)
-            fid = open('grading_data/predictions_int_end.npy','r')
-            preds = np.array(pickle.load(fid),dtype=np.int32)
-            fid.close()
-            if np.sum(preds==studentPreds)==preds.size:
-                return True,"Passed!"
+        fid = open('grading_data/log_reg_stress_int_end.npy','r')
+        theta = pickle.load(fid)
+        fid.close()
+        clf.theta = theta
+        studentPreds = np.array(clf.test(images),dtype=np.int32)
+        fid = open('grading_data/predictions_int_end.npy','r')
+        preds = np.array(pickle.load(fid),dtype=np.int32)
+        fid.close()
+        if np.sum(preds==studentPreds)==preds.size:
+            return True,"Passed!"
 
         return False,"Prediction mismatch."
 
