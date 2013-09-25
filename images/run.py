@@ -4,17 +4,18 @@ import util
 import numpy as np
 import pickle
 
-def run(grad,view,pixels,maxIter):
+def run(grad,view,pixels,maxIter,numTrain):
     k = 25
     maxIter_kMeans = 20
 
-    trainUImages = util.loadTrainImages()[:1000]
+    trainUImages = util.loadTrainImages()[:numTrain]
     trainSImages = trainUImages[:500]
     testImages = util.loadTestImages()
 
     if pixels is False:
         # Compile all patches into one big 2-D array (patchSize x numPatches)
         patches = np.hstack([np.array(image.getPatches()).transpose() for image in trainUImages])
+        print "Training K-means using %d images"%numTrain
         centroids = submission.runKMeans(k,patches,maxIter_kMeans)
         trainX,trainY = util.kMeansFeatures(trainSImages,centroids,submission.extractFeatures)
         testX, testY = util.kMeansFeatures(testImages,centroids,submission.extractFeatures)
@@ -49,12 +50,19 @@ def main(args=None):
                       help="Pass -v flag to view the learned centroids")
     parser.add_option("-p","--pixels",dest="pixels",action="store_true",default=False,
                       help="Pass -p flag to train the classifier on the raw pixels")
+    parser.add_option("-m","--more_data",dest="more_data",action="store_true",default=False,
+                      help="Pass -m flag to train the unsupervised algorithm on more unlabeled data")
 
     (opts,args) = parser.parse_args(args)
 
     if opts.seed:
         print "Setting random seed"
         np.random.seed(33)
+
+    if opts.more_data:
+        numTrain = 1000
+    else:
+        numTrain = 500
 
     if opts.grad=="perceptron":
         grad = util.perceptron
@@ -72,7 +80,7 @@ def main(args=None):
 
     print "Using the %s loss function"%opts.grad
 
-    run(grad,opts.view,opts.pixels,maxIter)
+    run(grad,opts.view,opts.pixels,maxIter,numTrain)
 
 
 if __name__=='__main__':
